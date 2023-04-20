@@ -4,17 +4,13 @@ from stable_baselines3 import DQN
 from stable_baselines3.common.evaluation import evaluate_policy
 import streamlit as st
 import time
-from PIL import Image
+
 
 env = gym.make("LunarLander-v2",render_mode='rgb_array')
 
 st.title('Lunar Lander')
 
 st.write('#### Train a model to play the lunar lander')
-
-
-img = Image.open('1.jpg')
-
 
 agents = []
 n = len(agents) if len(agents) else 2
