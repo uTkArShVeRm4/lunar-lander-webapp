@@ -91,7 +91,7 @@ if start_button:
 
 if display_button:
 	for i, frames in enumerate(st.session_state.frames):
-		frames_to_video(frames,fps,f'.static/{i}.mp4')
+		frames_to_video(frames,fps,f'{i}.mp4')
 	for j, col in enumerate(cols):
 		with col:
 
