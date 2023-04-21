@@ -55,7 +55,7 @@ if start_button:
 	for i,model in enumerate(agents):
 		vec_env[i] = model.get_env()
 		obs[i] = vec_env[i].reset()
-	while True:
+	for i in range(fps*5):
 		for j,model in enumerate(agents):
 			vec_env[j] = model.get_env()
 			action, _states = model.predict(obs[j], deterministic=True)
