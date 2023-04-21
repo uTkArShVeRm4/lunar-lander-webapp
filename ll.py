@@ -49,6 +49,7 @@ with st.form(key='main_form'):
         with col2:    
             stop_button = st.form_submit_button(label='Stop')
 
+fps = st.number_input('FPS',min_value=10,max_value=240,step=5)
 
 if start_button:
 	for i,model in enumerate(agents):
@@ -62,7 +63,7 @@ if start_button:
 			img = vec_env[j].render("rgb_array")
 			with cols[j]:
 				containers[j].image(img, use_column_width=True)
-			time.sleep(1/240)
+			time.sleep(1/fps)
 		if stop_button:
 		    break 	
 				
