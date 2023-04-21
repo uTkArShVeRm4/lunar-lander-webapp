@@ -20,19 +20,6 @@ def frames_to_video(frames, fps, filename):
 
 env = gym.make("LunarLander-v2", render_mode='rgb_array')
 
-if 'vec_env' not in st.session_state:
-    st.session_state.vec_env = [None for i in range(n)]
-if 'obs' not in st.session_state:
-    st.session_state.obs = [None for i in range(n)]
-if 'rewards' not in st.session_state:
-    st.session_state.rewards = [None for i in range(n)]
-if 'dones' not in st.session_state:
-    st.session_state.dones = [None for i in range(n)]
-if 'info' not in st.session_state:
-    st.session_state.info = [None for i in range(n)]
-if 'frames' not in st.session_state:
-    st.session_state.frames = [[] for i in range(n)]
-
 st.title('Lunar Lander')
 
 st.write('#### Train a model to play the lunar lander')
@@ -49,6 +36,18 @@ if st.checkbox('Add Random Agent'):
 if st.checkbox('Add Trained Agent'):
     agents.append(DQN.load("dqn_lunar", env=env))
 n = len(agents) if len(agents) else 2
+if 'vec_env' not in st.session_state:
+    st.session_state.vec_env = [None for i in range(n)]
+if 'obs' not in st.session_state:
+    st.session_state.obs = [None for i in range(n)]
+if 'rewards' not in st.session_state:
+    st.session_state.rewards = [None for i in range(n)]
+if 'dones' not in st.session_state:
+    st.session_state.dones = [None for i in range(n)]
+if 'info' not in st.session_state:
+    st.session_state.info = [None for i in range(n)]
+if 'frames' not in st.session_state:
+    st.session_state.frames = [[] for i in range(n)]
 cols = st.columns(n)
 containers = [st.empty() for i in range(n)]
 
