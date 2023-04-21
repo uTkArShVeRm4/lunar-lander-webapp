@@ -76,8 +76,8 @@ if step_button:
 	if flag == False:
 		flag = True
 		for i,model in enumerate(agents):
-		vec_env[i] = model.get_env()
-		obs[i] = vec_env[i].reset()
+			vec_env[i] = model.get_env()
+			obs[i] = vec_env[i].reset()
 	else:
 		for j,model in enumerate(agents):
 			vec_env[j] = model.get_env()
