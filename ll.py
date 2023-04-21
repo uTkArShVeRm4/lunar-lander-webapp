@@ -100,7 +100,6 @@ def main():
 
 
 	st.write('#### Generate a video of bot playing') 
-
 	st.info('Select models from sidebar')
 
 
@@ -126,7 +125,6 @@ def main():
 			        st.session_state.vec_env[i] = model.model.get_env()
 			        st.session_state.obs[i] = st.session_state.vec_env[i].reset()
 			        st.session_state.frames = [[] for i in range(n)]
-			        st.session_state.frames[j].append(img)
 			    for i, model in enumerate(models):
 			    	for j in range(fps*time_sec):
 			    		st.session_state.vec_env[i] = model.model.get_env()
