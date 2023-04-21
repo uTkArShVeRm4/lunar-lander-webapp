@@ -88,8 +88,6 @@ if start_button:
 	            break
 	st.write("Done. Press Display to view their actions.")
 
-st.write(os.listdir('.'))
-
 
 if display_button:
 	for i, frames in enumerate(st.session_state.frames):
@@ -97,15 +95,15 @@ if display_button:
 	for j, col in enumerate(cols):
 		with col:
 
-			video_html = f"""
-            <video width="600" height="400" autoplay="true" loop="true">
-            <source 
-            src="./app/static/{j}.mp4" 
-            type="video/mp4" />
-            </video>"""
+			# video_html = f"""
+            # <video width="600" height="400" autoplay="true" loop="true">
+            # <source 
+            # src="./app/static/{j}.mp4" 
+            # type="video/mp4" />
+            # </video>"""
 
-			st.markdown(video_html, unsafe_allow_html=True)
-			# video_file = open(f'{j}.mp4', 'rb')
-			# video_bytes = video_file.read()
-			# containers[j].video(data=video_bytes, start_time=0)       
+			# st.markdown(video_html, unsafe_allow_html=True)
+			video_file = open(f'{j}.mp4', 'rb')
+			video_bytes = video_file.read()
+			containers[j].video(data=video_bytes, start_time=0)       
 
