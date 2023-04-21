@@ -76,6 +76,7 @@ def main():
 				model = train_model(time_steps,start_prob,final_prob,lr)
 				model.save(f"models/{name}")
 			st.write('Model trained successfully')	
+		st.info("Note: Training may take some time.")	
 
 	# sidebar end
 
