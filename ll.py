@@ -55,7 +55,7 @@ with st.form(key='main_form'):
     with col3:
         display_button = st.form_submit_button(label='Display')
 
-fps = st.number_input('FPS', min_value=10, max_value=240, value=60, step=5)
+fps = st.number_input('FPS', min_value=1, max_value=240, value=60, step=5)
 time_steps = st.number_input('How long should agent play?', min_value = 10, max_value = 60, value = 10, step=5)
 
 if start_button:
