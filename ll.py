@@ -105,8 +105,8 @@ def main():
 	col1, col2, col3, col4, col5 = st.columns(5)
 	with col1:
 		start_button = st.button(label='Generate')
-	with col2:
-		display_button = st.button(label='Display video')  
+	# with col2:
+	# 	display_button = st.button(label='Display video')  
 
 	cols = st.columns(n)
 	containers = [st.empty() for i in range(n)]
