@@ -101,6 +101,8 @@ def main():
 
 	st.write('#### Generate a video of bot playing') 
 
+	st.info('Select models from sidebar')
+
 
 	col1, col2, col3, col4, col5 = st.columns(5)
 	with col1:
@@ -118,40 +120,33 @@ def main():
 	time_sec = st.number_input('How long should bot play?', min_value = 10, max_value = 60, value = 10, step=5)
 
 	if start_button:
-		with st.spinner("Bots are playing..."):
-		    for i, model in enumerate(models):
-		        st.session_state.vec_env[i] = model.model.get_env()
-		        st.session_state.obs[i] = st.session_state.vec_env[i].reset()
-		        st.session_state.frames = [[] for i in range(n)]
-		    # for i in range(fps*time_steps):
-		    #     for j, model in enumerate(models):
-		    #         st.session_state.vec_env[j] = model.model.get_env()
-		    #         action, _states = model.model.predict(st.session_state.obs[j], deterministic=True)
-		    #         st.session_state.obs[j], st.session_state.rewards[j], \
-		    #         st.session_state.dones[j], st.session_state.info[j] = \
-		    #         st.session_state.vec_env[j].step(action)
-		    #         img = st.session_state.vec_env[j].render("rgb_array")
-		    #         st.session_state.frames[j].append(img)
-		    for i, model in enumerate(models):
-		    	for j in range(fps*time_sec):
-		    		st.session_state.vec_env[i] = model.model.get_env()
-		    		action, _states = model.model.predict(st.session_state.obs[i], deterministic=True)
-		    		st.session_state.obs[i], st.session_state.rewards[i], \
-		    		st.session_state.dones[i], st.session_state.info[i] = \
-		    		st.session_state.vec_env[i].step(action)
-		    		img = st.session_state.vec_env[i].render("rgb_array")
-		    		st.session_state.frames[i].append(img)
-		try:
-			for i, frames in enumerate(st.session_state.frames):
-				frames_to_video(frames,fps,f'{models[i].name}.mp4')
-			for j, col in enumerate(cols):
-				with col:
-					st.write(models[j].name)
-					video_file = open(f'{models[j].name}.mp4', 'rb')
-					video_bytes = video_file.read()
-					containers[j].video(data=video_bytes, start_time=0) 
-		except AttributeError:
-			st.warning('Generate video first', icon="⚠️")			
+		if len(models):
+			with st.spinner("Bots are playing..."):
+			    for i, model in enumerate(models):
+			        st.session_state.vec_env[i] = model.model.get_env()
+			        st.session_state.obs[i] = st.session_state.vec_env[i].reset()
+			        st.session_state.frames = [[] for i in range(n)]
+			        st.session_state.frames[j].append(img)
+			    for i, model in enumerate(models):
+			    	for j in range(fps*time_sec):
+			    		st.session_state.vec_env[i] = model.model.get_env()
+			    		action, _states = model.model.predict(st.session_state.obs[i], deterministic=True)
+			    		st.session_state.obs[i], st.session_state.rewards[i], \
+			    		st.session_state.dones[i], st.session_state.info[i] = \
+			    		st.session_state.vec_env[i].step(action)
+			    		img = st.session_state.vec_env[i].render("rgb_array")
+			    		st.session_state.frames[i].append(img)
+			try:
+				for i, frames in enumerate(st.session_state.frames):
+					frames_to_video(frames,fps,f'{models[i].name}.mp4')
+				for j, col in enumerate(cols):
+					with col:
+						st.write(models[j].name)
+						video_file = open(f'{models[j].name}.mp4', 'rb')
+						video_bytes = video_file.read()
+						containers[j].video(data=video_bytes, start_time=0) 
+			except AttributeError:
+				st.warning('Generate video first', icon="⚠️")			
 
 	st.info("""### About DQN
 	DQN is a machine learning algorithm that uses a neural network to estimate the value of 
