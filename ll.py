@@ -72,7 +72,10 @@ def main():
 		if st.button('Train model'):
 			with st.spinner('Model is under training'):
 				model = train_model(time_steps,start_prob,final_prob,lr)
-				model.save(f"models/{name}")
+				try:
+					model.save(f"models/{name}")
+				except AttributeError as e:
+					pass	
 			st.write('Model trained successfully')	
 		st.info("Note: Training may take some time.")	
 
@@ -155,7 +158,7 @@ def main():
 	different actions in a given state.The algorithm balances exploration and exploitation 
 	by using an exploration probability.
 	The model needs to explore to look for better solution but it needs to exploit to use the knowledge it has
-	- Exploration probability starts high and decreases gradually.")
+	- Exploration probability starts high and decreases gradually.
 	- The learning rate controls how much the internal values are updated after each action.""")
     
 if __name__	 == '__main__':
