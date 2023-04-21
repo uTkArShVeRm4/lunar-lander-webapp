@@ -8,9 +8,6 @@ import os
 import imageio
 
 def frames_to_video(frames, fps, filename):
-    """
-    Convert a list of frames to a video file.
-    """
     with imageio.get_writer(filename, fps=fps) as writer:
         for frame in frames:
             writer.append_data(frame)
