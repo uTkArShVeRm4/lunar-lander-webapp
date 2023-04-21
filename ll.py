@@ -144,14 +144,17 @@ def main():
 		st.write("Done. Press Display to view their actions.")
 
 	if display_button:
-		for i, frames in enumerate(st.session_state.frames):
-			frames_to_video(frames,fps,f'{models[i].name}.mp4')
-		for j, col in enumerate(cols):
-			with col:
-				st.write(models[j].name)
-				video_file = open(f'{models[j].name}.mp4', 'rb')
-				video_bytes = video_file.read()
-				containers[j].video(data=video_bytes, start_time=0) 
+		if(len(st.session.frames[n-1])>0):
+			for i, frames in enumerate(st.session_state.frames):
+				frames_to_video(frames,fps,f'{models[i].name}.mp4')
+			for j, col in enumerate(cols):
+				with col:
+					st.write(models[j].name)
+					video_file = open(f'{models[j].name}.mp4', 'rb')
+					video_bytes = video_file.read()
+					containers[j].video(data=video_bytes, start_time=0) 
+		else:
+			st.warning('Generate video first', icon="⚠️")			
 
 	st.info("""### About DQN
 	DQN is a machine learning algorithm that uses a neural network to estimate the value of 
