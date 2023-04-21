@@ -69,7 +69,7 @@ if start_button:
 			time.sleep(1/fps)
 		if stop_button:
 			flag = False
-		    break 	
+			break 	
 
 
 if step_button:
