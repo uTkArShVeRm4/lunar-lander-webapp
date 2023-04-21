@@ -62,7 +62,7 @@ def main():
 				        except Exception as e:
 				            print(f"Error deleting {file_name}: {e}")		
 				st.session_state.options = load_options(env)            
-		models = st.multiselect('Select models',st.session_state.options,format_func=lambda x: x.name, max_selections = 4)
+		models = st.multiselect('Select models',st.session_state.options,format_func=lambda x: x.name, max_selections = 3)
 
 		start_prob = st.slider('Select initial value of random action probability (recommended = 1)', min_value=0.0, max_value=1.0, step=0.01, value=1.0)
 		final_prob = st.slider('Select final value of random action probability (recommended = 0.1)', min_value=0.0, max_value=1.0, step=0.01, value=0.1)
