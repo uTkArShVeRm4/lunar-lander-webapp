@@ -18,8 +18,6 @@ def frames_to_video(frames, fps, filename):
     return filename
 
 
-agents = []
-n = len(agents) if len(agents) else 2
 env = gym.make("LunarLander-v2", render_mode='rgb_array')
 
 if 'vec_env' not in st.session_state:
@@ -38,13 +36,7 @@ if 'frames' not in st.session_state:
 st.title('Lunar Lander')
 
 st.write('#### Train a model to play the lunar lander')
-
-cols = st.columns(n)
-containers = [st.empty() for i in range(n)]
-
-for i, col in enumerate(cols):
-    with col:
-        containers[i] = st.empty()
+agents = []
 
 if st.checkbox('Add Random Agent'):
     agents.append(DQN(
@@ -56,6 +48,15 @@ if st.checkbox('Add Random Agent'):
 
 if st.checkbox('Add Trained Agent'):
     agents.append(DQN.load("dqn_lunar", env=env))
+n = len(agents) if len(agents) else 2
+cols = st.columns(n)
+containers = [st.empty() for i in range(n)]
+
+for i, col in enumerate(cols):
+    with col:
+        containers[i] = st.empty()
+
+
 
 with st.form(key='main_form'):
     col1, col2, col3 = st.columns(3)
@@ -94,15 +95,6 @@ if display_button:
 		frames_to_video(frames,fps,f'{i}.mp4')
 	for j, col in enumerate(cols):
 		with col:
-
-			# video_html = f"""
-            # <video width="600" height="400" autoplay="true" loop="true">
-            # <source 
-            # src="./app/static/{j}.mp4" 
-            # type="video/mp4" />
-            # </video>"""
-
-			# st.markdown(video_html, unsafe_allow_html=True)
 			video_file = open(f'{j}.mp4', 'rb')
 			video_bytes = video_file.read()
 			containers[j].video(data=video_bytes, start_time=0)       
