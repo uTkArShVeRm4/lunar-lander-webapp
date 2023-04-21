@@ -39,8 +39,6 @@ def load_options(env):
 def main():
 
 	env = gym.make("LunarLander-v2", render_mode='rgb_array')
-	if not os.path.exists('models/'):
-		os.mkdir('models')
 
 	# sidebar for training and selecting models
 
