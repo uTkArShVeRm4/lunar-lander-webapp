@@ -45,6 +45,7 @@ def main():
 	if 'options' not in st.session_state:
 		st.session_state.options = []
 	with st.sidebar:
+		st.info('Click on refresh models to update model list')
 		col1, col2 = st.columns(2)
 		with col1:	
 			if st.button('Refresh Models'):	
@@ -91,6 +92,7 @@ def main():
 	    st.session_state.frames = [[] for i in range(n)]
 	st.title('Lunar Lander')
 	st.write('#### To Train your model, access the sidebar')
+	st.info('This model uses Deep Q Network learning technique. For more info scroll down')
 
 
 	st.write('#### Generate a video of bot playing') 
@@ -145,7 +147,15 @@ def main():
 				st.write(models[j].name)
 				video_file = open(f'{models[j].name}.mp4', 'rb')
 				video_bytes = video_file.read()
-				containers[j].video(data=video_bytes, start_time=0)  
+				containers[j].video(data=video_bytes, start_time=0) 
+
+	st.info("""### About DQN
+	DQN is a machine learning algorithm that uses a neural network to estimate the value of 
+	different actions in a given state.The algorithm balances exploration and exploitation 
+	by using an exploration probability.
+	The model needs to explore to look for better solution but it needs to exploit to use the knowledge it has
+	- Exploration probability starts high and decreases gradually.")
+	- The learning rate controls how much the internal values are updated after each action.""")
     
 if __name__	 == '__main__':
 	st.set_page_config(layout='wide')
