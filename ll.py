@@ -4,8 +4,19 @@ from stable_baselines3 import DQN
 from stable_baselines3.common.evaluation import evaluate_policy
 import streamlit as st
 import time
-
+import imageio
+import os
 st.set_page_config(layout='wide')
+
+def frames_to_video(frames, fps, filename):
+    """
+    Convert a list of frames to a video file.
+    """
+    with imageio.get_writer(filename, fps=fps) as writer:
+        for frame in frames:
+            writer.append_data(frame)
+    return filename
+
 
 agents = []
 n = len(agents) if len(agents) else 2
@@ -55,7 +66,7 @@ with st.form(key='main_form'):
     with col3:
         display_button = st.form_submit_button(label='Display')
 
-fps = st.number_input('FPS', min_value=1, max_value=240, value=60, step=5)
+fps = st.number_input('FPS', min_value=10, max_value=240, value=60, step=5)
 time_steps = st.number_input('How long should agent play?', min_value = 10, max_value = 60, value = 10, step=5)
 
 if start_button:
@@ -77,11 +88,24 @@ if start_button:
 	            break
 	st.write("Done. Press Display to view their actions.")
 
+st.write(os.listdir('.'))
+
+
 if display_button:
-    for i in range(len(st.session_state.frames[0])):
-        for j, col in enumerate(cols):
-            with col:
-                containers[j].image(st.session_state.frames[j][i], use_column_width=True)        
-        time.sleep(1/fps)
-        if stop_button:
-	        break
+	for i, frames in enumerate(st.session_state.frames):
+		frames_to_video(frames,fps,f'.static/{i}.mp4')
+	for j, col in enumerate(cols):
+		with col:
+
+			video_html = f"""
+            <video width="600" height="400" autoplay="true" loop="true">
+            <source 
+            src="./app/static/{j}.mp4" 
+            type="video/mp4" />
+            </video>"""
+
+			st.markdown(video_html, unsafe_allow_html=True)
+			# video_file = open(f'{j}.mp4', 'rb')
+			# video_bytes = video_file.read()
+			# containers[j].video(data=video_bytes, start_time=0)       
+
