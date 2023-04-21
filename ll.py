@@ -73,7 +73,7 @@ if start_button:
 
 
 if step_button:
-	if flag = False:
+	if flag == False:
 		flag = True
 		for i,model in enumerate(agents):
 		vec_env[i] = model.get_env()
