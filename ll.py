@@ -141,9 +141,6 @@ def main():
 		    		st.session_state.vec_env[i].step(action)
 		    		img = st.session_state.vec_env[i].render("rgb_array")
 		    		st.session_state.frames[i].append(img)
-		st.write("Done. Press Display to view their actions.")
-
-	if display_button:
 		try:
 			for i, frames in enumerate(st.session_state.frames):
 				frames_to_video(frames,fps,f'{models[i].name}.mp4')
